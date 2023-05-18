@@ -1,7 +1,9 @@
 package com.example.majstrakdemo.controller;
 import com.example.majstrakdemo.domain.Person;
 import com.example.majstrakdemo.domain.Result;
+import com.example.majstrakdemo.domain.RickAndMortyCharacters;
 import com.example.majstrakdemo.service.RickAndMortyService;
+import com.example.majstrakdemo.service.RickAndMortyServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +40,18 @@ public class HomeController {
                .stream()
                .filter(x -> x.getName().contains("r"))
                .collect(Collectors.groupingBy(x -> x.getName(), Collectors.counting()));
+    }
+
+
+    @GetMapping("/save-characters")
+    @ResponseBody
+    public String saveAllCharacters() {
+
+
+        rickAndMortyService.getAllCharacters().getResults().forEach(character -> {
+            rickAndMortyService.save(character);
+        });
+
+       return "saved";
     }
 }

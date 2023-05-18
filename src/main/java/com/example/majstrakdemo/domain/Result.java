@@ -21,6 +21,7 @@ public class Result {
     private String created;
     @Column
     @Convert(converter = StringListConverter.class)
+    @Lob
     private List<String> episode;
     @Column
     private String gender;
